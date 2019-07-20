@@ -9,6 +9,6 @@ source ./scripts/build/.variables
 
 echo "Building dynamically linked $TARGET"
 export CGO_ENABLED=1
-go build -o "${TARGET}" -tags pkcs11 --ldflags "${LDFLAGS}" -buildmode=pie "${SOURCE}"
+go build -a -o "${TARGET}" -tags pkcs11 --ldflags "${LDFLAGS}" -buildmode=default "${SOURCE}"
 
 ln -sf "$(basename "${TARGET}")" build/docker

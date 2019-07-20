@@ -37,7 +37,7 @@ func FindLoopDeviceFor(file *os.File) *os.File {
 		return nil
 	}
 	targetInode := stat.Ino
-	targetDevice := stat.Dev
+	targetDevice := uint64(stat.Dev)
 
 	for i := 0; true; i++ {
 		path := fmt.Sprintf("/dev/loop%d", i)

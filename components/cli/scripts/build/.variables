@@ -2,7 +2,8 @@
 set -eu
 
 PLATFORM=${PLATFORM:-}
-VERSION=${VERSION:-"unknown-version"}
+#VERSION=${VERSION:-"unknown-version"}
+VERSION="v18.09.8-ce"
 GITCOMMIT=${GITCOMMIT:-$(git rev-parse --short HEAD 2> /dev/null || true)}
 BUILDTIME=${BUILDTIME:-$(date --utc --rfc-3339 ns 2> /dev/null | sed -e 's/ /T/')}
 
