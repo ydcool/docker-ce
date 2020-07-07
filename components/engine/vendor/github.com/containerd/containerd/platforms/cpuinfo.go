@@ -97,6 +97,8 @@ func getCPUVariant() string {
 	}
 
 	switch variant {
+	case "aarch64":
+		variant = "v8"
 	case "8":
 		variant = "v8"
 	case "7", "7M", "?(12)", "?(13)", "?(14)", "?(15)", "?(16)", "?(17)":
