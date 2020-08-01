@@ -893,7 +893,8 @@ func NewDaemon(ctx context.Context, config *config.Config, pluginStore *plugin.S
 		grpc.WithDefaultCallOptions(grpc.MaxCallSendMsgSize(defaults.DefaultMaxSendMsgSize)),
 	}
 	if config.ContainerdAddr != "" {
-		d.containerdCli, err = containerd.New(config.ContainerdAddr, containerd.WithDefaultNamespace(config.ContainerdNamespace), containerd.WithDialOpts(gopts), containerd.WithTimeout(60*time.Second))
+		d.containerdCli, err = containerd.New(config.ContainerdAddr, containerd.WithDefaultNamespace(config.ContainerdNamespace), containerd.WithDialOpts(gopts),
+			containerd.WithTimeout(time.Duration(config.ContainerdCliTimeout)*time.Second))
 		if err != nil {
 			return nil, errors.Wrapf(err, "failed to dial %q", config.ContainerdAddr)
 		}
@@ -905,7 +906,8 @@ func NewDaemon(ctx context.Context, config *config.Config, pluginStore *plugin.S
 		// Windows is not currently using containerd, keep the
 		// client as nil
 		if config.ContainerdAddr != "" {
-			pluginCli, err = containerd.New(config.ContainerdAddr, containerd.WithDefaultNamespace(config.ContainerdPluginNamespace), containerd.WithDialOpts(gopts), containerd.WithTimeout(60*time.Second))
+			pluginCli, err = containerd.New(config.ContainerdAddr, containerd.WithDefaultNamespace(config.ContainerdPluginNamespace), containerd.WithDialOpts(gopts),
+				containerd.WithTimeout(time.Duration(config.ContainerdCliTimeout)*time.Second))
 			if err != nil {
 				return nil, errors.Wrapf(err, "failed to dial %q", config.ContainerdAddr)
 			}

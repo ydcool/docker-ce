@@ -16,6 +16,8 @@ const (
 	defaultShutdownTimeout = 15
 	// defaultTrustKeyFile is the default filename for the trust key
 	defaultTrustKeyFile = "key.json"
+	// defaultContainerdTimeout is the default request timeout for the containerd client in daemon
+	defaultContainerdTimeout = 60
 )
 
 // installCommonConfigFlags adds flags to the pflag.FlagSet to configure the daemon
@@ -93,6 +95,8 @@ func installCommonConfigFlags(conf *config.Config, flags *pflag.FlagSet) error {
 		return err
 	}
 	flags.StringVar(&conf.ContainerdPluginNamespace, "containerd-plugins-namespace", containerd.PluginNamespace, "Containerd namespace to use for plugins")
+	flags.IntVar(&conf.ContainerdCliTimeout, "containerd-cli-timeout", defaultContainerdTimeout, "Set the default containerd cli timeout in docker daemon")
+
 	return flags.MarkHidden("containerd-plugins-namespace")
 }
 
