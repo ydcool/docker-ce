@@ -86,6 +86,8 @@ func (cli *DaemonCli) start(opts *daemonOptions) (err error) {
 	cli.configFile = &opts.configFile
 	cli.flags = opts.flags
 
+	logrus.Infof("===> loaded daemon config: %#v", *cli.Config)
+
 	if cli.Config.Debug {
 		debug.Enable()
 	}

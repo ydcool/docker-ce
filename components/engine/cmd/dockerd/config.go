@@ -1,12 +1,11 @@
 package main
 
 import (
-	"runtime"
-
 	"github.com/docker/docker/daemon/config"
 	"github.com/docker/docker/opts"
 	"github.com/docker/docker/registry"
 	"github.com/spf13/pflag"
+	"runtime"
 )
 
 const (
@@ -14,6 +13,8 @@ const (
 	defaultShutdownTimeout = 15
 	// defaultTrustKeyFile is the default filename for the trust key
 	defaultTrustKeyFile = "key.json"
+	// defaultContainerdTimeout is the default request timeout for the containerd client in daemon
+	defaultContainerdTimeout = 60
 )
 
 // installCommonConfigFlags adds flags to the pflag.FlagSet to configure the daemon
@@ -80,6 +81,8 @@ func installCommonConfigFlags(conf *config.Config, flags *pflag.FlagSet) {
 
 	conf.MaxConcurrentDownloads = &maxConcurrentDownloads
 	conf.MaxConcurrentUploads = &maxConcurrentUploads
+
+	flags.IntVar(&conf.ContainerdCliTimeout, "containerd-cli-timeout", defaultContainerdTimeout, "Set the default containerd cli timeout in docker daemon")
 }
 
 func installRegistryServiceFlags(options *registry.ServiceOptions, flags *pflag.FlagSet) {
